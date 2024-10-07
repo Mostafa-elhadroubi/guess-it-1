@@ -26,8 +26,8 @@ func Average(arrInt []float64) float64 {
 	for i := 0; i < len(arrInt); i++ {
 		sum += arrInt[i]
 	}
-	res := math.Round(float64(sum) / float64(len(arrInt)))
-	return math.Round(res)
+	res := math.Round((sum) / float64(len(arrInt)))
+	return res
 }
 
 
@@ -36,7 +36,7 @@ func Variance(arrInt []float64) float64 {
 	var variance, average float64
 	average = Average(arrInt)
 	for i := 0; i < len(arrInt); i++ {
-		variance += (float64(arrInt[i])-average)*(float64(arrInt[i])-average)
+		variance += ((arrInt[i])-average)*((arrInt[i])-average)
 	}
 	res := (variance/ float64(len(arrInt)))
 	return res
@@ -49,8 +49,8 @@ func Deviation(arrData []float64) float64 {
 }
 func Result(arrData []float64) (int, int) {
 	i := len(arrData)-10
-	if i  < 0 {
-		i = 0
+	if len(arrData) == 0 {
+		return 0, 0
 	}
 	newSlice := arrData[i:]
 	average := Average(newSlice)
@@ -73,7 +73,7 @@ func main() {
 		}
 		arrData =append(arrData, num)
 		lower, limit := Result(arrData)
-		fmt.Println(lower, limit)
+		fmt.Printf("%d %.d\n", lower, limit)
 	}
 
 }
