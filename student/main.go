@@ -23,8 +23,8 @@ import (
 
 func Average(arrInt []float64) float64 {
 	sum := 0.0
-	for i := 0; i < len(arrInt); i++ {
-		sum += arrInt[i]
+	for _,  num := range arrInt {
+		sum += num
 	}
 	res := math.Round((sum) / float64(len(arrInt)))
 	return res
@@ -35,8 +35,11 @@ func Average(arrInt []float64) float64 {
 func Variance(arrInt []float64) float64 {
 	var variance, average float64
 	average = Average(arrInt)
-	for i := 0; i < len(arrInt); i++ {
-		variance += ((arrInt[i])-average)*((arrInt[i])-average)
+	// for i := 0; i < len(arrInt); i++ {
+	// 	variance += ((arrInt[i])-average)*((arrInt[i])-average)
+	// }
+	for  _, num := range arrInt {
+		variance += ((num)-average)*((num)-average)
 	}
 	res := (variance/ float64(len(arrInt)))
 	return res
@@ -48,17 +51,16 @@ func Deviation(arrData []float64) float64 {
 	return deviation
 }
 func Result(arrData []float64) (int, int) {
-	i := len(arrData)-10
-	if len(arrData) == 0 {
-		return 0, 0
+	i := len(arrData)-4
+	if i < 0 {
+		i = 0
 	}
 	newSlice := arrData[i:]
 	average := Average(newSlice)
 	deviation := Deviation(newSlice)
-	lower :=  int(math.Round((average - deviation)))
-	limit := int(math.Round((average + deviation)))
-	// fmt.Println(lower, limit)
-	return lower, limit
+	lower :=  (average - (0.8*deviation))
+	limit := (average + (0.8*deviation))
+	return int(math.Round(lower)), int(math.Round(limit))
 }
 
 func main() {
